@@ -10,6 +10,7 @@
     padding: 1rem;
     border-radius: 8px;
     background-color: #fffefe;
+    min-width: 300px
 }
 
 .overlay-model input {

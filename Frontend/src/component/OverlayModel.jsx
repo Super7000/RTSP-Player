@@ -3,7 +3,7 @@ import { createOverlay } from '../services/services';
 import "../style/OverlayModel.css"
 
 function OverlayModel({ onClose, onAdd }) {
-    const [newOverlay, setNewOverlay] = useState({ content: '', x: 0, y: 0, width: 100, height: 100 });
+    const [newOverlay, setNewOverlay] = useState({ content: '', x: 0, y: 0, width: 100, height: 100, transparancy: 0.5 });
 
     return (
         <>
@@ -14,6 +14,7 @@ function OverlayModel({ onClose, onAdd }) {
                     onChange={(e) => setNewOverlay({ ...newOverlay, content: e.target.value })}
                     placeholder="Overlay content"
                 />
+                Position:
                 <input
                     type="number"
                     value={newOverlay.y}
@@ -26,6 +27,7 @@ function OverlayModel({ onClose, onAdd }) {
                     onChange={(e) => setNewOverlay({ ...newOverlay, x: e.target.value })}
                     placeholder="left"
                 />
+                Size:
                 <input
                     type="number"
                     value={newOverlay.width}
@@ -37,6 +39,15 @@ function OverlayModel({ onClose, onAdd }) {
                     value={newOverlay.height}
                     onChange={(e) => setNewOverlay({ ...newOverlay, height: e.target.value })}
                     placeholder="height"
+                />
+                Transparancy:
+                <input
+                    type="range"
+                    min={0}
+                    max={1}
+                    step={0.1}
+                    value={newOverlay.transparancy}
+                    onChange={(e) => setNewOverlay({ ...newOverlay, transparancy: e.target.value })}
                 />
                 <button onClick={async () => {
                     await createOverlay(newOverlay);

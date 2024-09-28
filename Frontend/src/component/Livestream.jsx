@@ -23,7 +23,7 @@ const Livestream = ({ rtspUrl, overlays = [] }) => {
                             top: `${overlay.y}px`,
                             width: `${overlay.width}px`,
                             height: `${overlay.height}px`,
-                            background: 'rgba(255, 255, 255, 0.5)',
+                            background: `rgba(255, 255, 255, ${overlay.transparancy})`,
                             padding: '5px',
                             display: 'flex',
                             justifyContent: 'center',
