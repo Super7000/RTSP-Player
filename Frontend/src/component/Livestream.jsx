@@ -29,7 +29,8 @@ const Livestream = ({ rtspUrl, overlays = [] }) => {
                             flexDirection: 'column',
                             justifyContent: 'center',
                             alignItems: 'center',
-                            borderRadius: '0.5rem'
+                            borderRadius: '0.5rem',
+                            overflow: 'hidden',
                         }}
                     >
                         {overlay.content}
