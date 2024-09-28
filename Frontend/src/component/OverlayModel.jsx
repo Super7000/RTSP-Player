@@ -4,6 +4,11 @@ import "../style/OverlayModel.css"
 
 function OverlayModel({ onClose, onAdd }) {
     const [newOverlay, setNewOverlay] = useState({ content: '', x: 0, y: 0, width: 100, height: 100, transparancy: 0.5 });
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    const handleFileSelect = (event) => {
+        setSelectedFile(event.target.files[0]);
+      };
 
     return (
         <>
@@ -49,8 +54,9 @@ function OverlayModel({ onClose, onAdd }) {
                     value={newOverlay.transparancy}
                     onChange={(e) => setNewOverlay({ ...newOverlay, transparancy: e.target.value })}
                 />
+                <input type="file" onChange={handleFileSelect} />
                 <button onClick={async () => {
-                    await createOverlay(newOverlay);
+                    await createOverlay(newOverlay, selectedFile);
                     await onAdd();
                     onClose();
                 }}>Add Overlay</button>

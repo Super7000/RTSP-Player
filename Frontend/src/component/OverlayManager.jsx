@@ -20,6 +20,11 @@ function Overlay({ overlay, onChange = () => { } }) {
         width: 100, height: 100,
         transparancy: 0.5
     });
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    const handleFileSelect = (event) => {
+        setSelectedFile(event.target.files[0]);
+    }
 
     return (
         <div className='overlay'>
@@ -75,12 +80,14 @@ function Overlay({ overlay, onChange = () => { } }) {
                     onChange={(e) => isEditing ? setUpdatedOverlay({ ...updatedOverlay, transparancy: e.target.value }) : ""}
                     readOnly={!isEditing}
                 />
+                {isEditing && <input type="file" onChange={handleFileSelect} />}
+                {overlay.image && <img src={`http://localhost:5000/uploads/${overlay.image}`} alt="Overlay" style={{ width: '100px', height: '100px', justifySelf: 'center', position: 'relative', left: '50%', transform: 'translate(-50%,0)' }} />}
             </>
 
             {isEditing ? (
                 <button onClick={() => {
                     setIsEditing(false);
-                    updateOverlay(updatedOverlay._id, updatedOverlay).then(() => onChange());
+                    updateOverlay(updatedOverlay._id, updatedOverlay, selectedFile).then(() => onChange());
                 }}>Save</button>
             ) : (
                 <div className='input-grp btn-grp'>

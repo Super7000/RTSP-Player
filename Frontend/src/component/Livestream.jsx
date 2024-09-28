@@ -26,12 +26,22 @@ const Livestream = ({ rtspUrl, overlays = [] }) => {
                             background: `rgba(255, 255, 255, ${overlay.transparancy})`,
                             padding: '5px',
                             display: 'flex',
+                            flexDirection: 'column',
                             justifyContent: 'center',
                             alignItems: 'center',
                             borderRadius: '0.5rem'
                         }}
                     >
                         {overlay.content}
+                        {overlay.image && (
+                            <>
+                                <img
+                                    src={`http://localhost:5000/uploads/${overlay.image}`}
+                                    alt="Overlay"
+                                    style={{ maxWidth: '100%', maxHeight: '100%' }}
+                                />
+                            </>
+                        )}
                     </div>
                 ))}
             </div>

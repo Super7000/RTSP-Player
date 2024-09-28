@@ -10,14 +10,26 @@ const fetchOverlays = async () => {
     return response.data;
 };
 
-const createOverlay = async (overlay) => {
+const createOverlay = async (overlay, file) => {
+    if (file) {
+        const formData = new FormData();
+        formData.append('file', file);
+        const uploadResponse = await axios.post('http://localhost:5000/api/upload', formData);
+        overlay.image = uploadResponse.data.filename;
+    }
     await axios.post('http://localhost:5000/api/overlays', overlay);
     return overlay
 };
 
-const updateOverlay = async (id, updatedOverlay) => {
-    await axios.put(`http://localhost:5000/api/overlays/${id}`, updatedOverlay);
-    return updatedOverlay
+const updateOverlay = async (id, overlay, file) => {
+    if (file) {
+        const formData = new FormData();
+        formData.append('file', file);
+        const uploadResponse = await axios.post('http://localhost:5000/api/upload', formData);
+        overlay.image = uploadResponse.data.filename;
+    }
+    await axios.put(`http://localhost:5000/api/overlays/${id}`, overlay);
+    return overlay
 };
 
 const deleteOverlay = async (id) => {
