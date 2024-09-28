@@ -3,3 +3,14 @@
     justify-content: center;
     justify-items: center;
 }
+
+.add-overlay-btn {
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -53,7 +53,7 @@ def delete_overlay(id):
 
 @app.route('/api/rtsp_url', methods=['GET'])
 def get_rtsp_url():
-    return jsonify({'rtsp_url': 'rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mp4'})
+    return jsonify({'rtsp_url': 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'})
 
 if __name__ == '__main__':
     app.run(debug=True)

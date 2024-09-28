@@ -12,6 +12,7 @@ const Livestream = ({ rtspUrl, overlays = [] }) => {
                     controls
                     width="640px"
                     height="360px"
+                    style={{ borderRadius: '1rem', overflow: 'hidden' }}
                 />
                 {overlays.map((overlay) => (
                     <div
@@ -24,6 +25,10 @@ const Livestream = ({ rtspUrl, overlays = [] }) => {
                             height: `${overlay.height}px`,
                             background: 'rgba(255, 255, 255, 0.5)',
                             padding: '5px',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            borderRadius: '0.5rem'
                         }}
                     >
                         {overlay.content}

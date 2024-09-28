@@ -1,66 +1,16 @@
 import React, { useState } from 'react';
-import { createOverlay, updateOverlay } from '../services/services';
+import { deleteOverlay, updateOverlay } from '../services/services';
 import "../style/OverlayManager.css"
 
 const OverlayManager = ({ overlays, onChange = () => { } }) => {
-    const [newOverlay, setNewOverlay] = useState({ content: '', x: 0, y: 0, width: 100, height: 100 });
-
     return (
-        <div className='overlay-manager'>
-            <div>
-
-                <h2>Overlays</h2>
-                <div className='overlay-form'>
-                    <input
-                        type="text"
-                        value={newOverlay.content}
-                        onChange={(e) => setNewOverlay({ ...newOverlay, content: e.target.value })}
-                        placeholder="Overlay content"
-                    />
-                    <input
-                        type="number"
-                        value={newOverlay.y}
-                        onChange={(e) => setNewOverlay({ ...newOverlay, y: e.target.value })}
-                        placeholder="top"
-                    />
-                    <input
-                        type="number"
-                        value={newOverlay.x}
-                        onChange={(e) => setNewOverlay({ ...newOverlay, x: e.target.value })}
-                        placeholder="left"
-                    />
-                    <input
-                        type="number"
-                        value={newOverlay.width}
-                        onChange={(e) => setNewOverlay({ ...newOverlay, width: e.target.value })}
-                        placeholder="width"
-                    />
-                    <input
-                        type="number"
-                        value={newOverlay.height}
-                        onChange={(e) => setNewOverlay({ ...newOverlay, height: e.target.value })}
-                        placeholder="height"
-                    />
-                    <button onClick={async () => {
-                        await createOverlay(newOverlay);
-                        onChange();
-                    }}>Add Overlay</button>
-                </div>
-            </div>
-            <Overlays overlays={overlays} onChange={onChange} />
-        </div>
-    );
-};
-
-function Overlays({ overlays, onChange }) {
-    return (
-        <div>
+        <div className='overlays-container'>
             {overlays.map((overlay) => (
                 <Overlay key={overlay._id} overlay={overlay} onChange={onChange} />
             ))}
         </div>
     );
-}
+};
 
 function Overlay({ overlay, onChange = () => { } }) {
     const [isEditing, setIsEditing] = useState(false);
@@ -75,7 +25,7 @@ function Overlay({ overlay, onChange = () => { } }) {
                     onChange={(e) => setUpdatedOverlay({ ...updatedOverlay, content: e.target.value })}
                     readOnly={!isEditing}
                 />
-                <div>
+                <div className='input-grp'>
                     <input
                         type="number"
                         value={updatedOverlay.y}
@@ -89,7 +39,7 @@ function Overlay({ overlay, onChange = () => { } }) {
                         readOnly={!isEditing}
                     />
                 </div>
-                <div>
+                <div className='input-grp'>
                     <input
                         type="number"
                         value={updatedOverlay.width}
@@ -111,10 +61,12 @@ function Overlay({ overlay, onChange = () => { } }) {
                     updateOverlay(updatedOverlay._id, updatedOverlay).then(() => onChange());
                 }}>Save</button>
             ) : (
-                <>
+                <div className='input-grp btn-grp'>
                     <button onClick={() => setIsEditing(true)}>Edit</button>
-                    <button onClick={() => deleteOverlay(overlay._id)}>Delete</button>
-                </>
+                    <button onClick={() => {
+                        deleteOverlay(overlay._id).then(() => onChange())
+                    }}>Delete</button>
+                </div>
             )}
         </div>
     );
